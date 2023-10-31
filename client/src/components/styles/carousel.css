@@ -1,0 +1,100 @@
+.carousel{
+    /* border: 1px solid blue; */
+    /* width: 90%; */
+    margin: 1rem auto;
+}
+.carousel-inner{
+    /* border: 1px solid violet; */
+    width: 80%;
+    margin: auto;
+}
+.carousel-b{
+    display: flex;   
+    align-items: center;
+}
+
+/* .cr-img{
+    aspect-ratio: 1/1;
+    width: 35%;
+    border-radius: 7px;
+} */
+.article{
+    padding: 1rem 3rem 1rem 2rem;
+}
+.tag{
+    font-weight: 700;
+    /* color: #0b5238; */
+    margin-bottom: 0.9rem;
+    color: #156c4b;
+    font-size: 0.8rem;
+}
+.date{
+    font-weight: 400;
+    color: rgb(149, 148, 148);
+}
+.title{
+   font-weight: 700;
+   margin: 1rem auto;
+   text-align: center; 
+}
+.content{
+    color: rgb(103, 103, 103);
+}
+.author{
+    display: flex;
+    flex-flow: column;
+}
+.name{
+    font-weight: 700;
+    color: rgb(24, 24, 24);
+}
+.un{
+    color: rgb(108, 108, 108);
+}
+.carousel-control-prev , .carousel-control-next{
+    /* border: 2px solid red; */
+    color: black;
+}
+
+.carousel-control-prev-icon , .carousel-control-next-icon{
+    background-image: url('../images/arrow.png') !important;
+    transform: scale(0.7);
+}
+.carousel-control-prev-icon{
+    transform: rotate(180deg) scale(0.7);
+}
+
+.carousel-indicators{
+    background-color: black;
+    /* color: black; */
+}
+
+@media only screen and (max-width: 1000px){
+    .title{
+        font-size: 1.5rem;
+    }
+    .article{
+        padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .carousel-b{
+        display: block;
+    }
+    .cr-img{
+        width: 100%;
+        aspect-ratio: 4/3;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    .carousel{
+        width: 100%;
+    }
+    .carousel-b{
+        width: 90%;
+        margin: auto;
+    }
+}

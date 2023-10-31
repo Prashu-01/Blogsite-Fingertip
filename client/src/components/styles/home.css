@@ -1,0 +1,63 @@
+/* hero UI */
+.heroUI {
+    width: 100%;
+    height: 45rem;
+    background-image: url('../images/leaf_green.jpg ');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-size: large;
+}
+.box{
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    margin: auto;
+    padding: 12rem 0 0 0;
+}
+.h-title{
+    font-size: 3.5rem;
+    font-weight: 800;
+}
+.Txt{
+    color: white;
+    width: 52%;
+}
+
+.homei{
+    overflow: hidden;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.topic{
+    margin: 1rem auto;
+    border-bottom:7px solid #1e453e;
+    padding-bottom: 1rem;
+    width: max-content;
+}
+@media only screen and (max-width: 1100px) {
+    .box{
+        width: 95%;
+        padding-top: 11rem;
+    }
+    .homei{
+        width: 139%;
+    }
+    .Txt{
+        width: auto;
+        backdrop-filter: blur(5px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .homei{
+        display: none;
+    }
+}
+@media only screen and (max-width:500px) {
+    .h-title{
+        font-size: 2.5rem;
+    }
+}

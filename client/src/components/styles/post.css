@@ -1,0 +1,276 @@
+.main {
+    width: 80%;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.row>a,
+.right>ul>a,
+.posts>a {
+    text-decoration: none;
+    margin: 0;
+    width: max-content;
+    list-style-type: none;
+}
+
+.Row>a {
+    margin: .2rem;
+}
+
+.row>* {
+    padding: .2rem;
+}
+
+.posts {
+    width: 63%;
+    padding: 1.7rem;
+    background-color: white;
+}
+
+.Row {
+    flex-wrap: wrap;
+}
+
+/* post card */
+.card {
+    transition: all 0.5s;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: .8rem auto;
+    overflow: hidden;
+}
+
+.card-text {
+    word-break: break-word;
+    font-size: 0.95rem;
+}
+
+.card-img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    aspect-ratio: 1/1 !important;
+    transition: all .5s;
+}
+
+.card:hover,
+.allpost:hover {
+    box-shadow: 2px 4px 10px rgba(79, 81, 80, 0.333);
+    transform: translateY(-.1rem);
+}
+
+.card:hover .card-img {
+    transform: scale(1.03);
+}
+
+.card-body {
+    padding: 0;
+}
+
+.allpost {
+    background-color: whitesmoke;
+    color: #16533d;
+    transition: all 0.5s;
+    border: 0;
+    border-radius: 5px;
+    padding: .5rem 1rem .5rem 1rem;
+    margin: 1rem auto;
+    width: 8rem;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+/* detail post */
+.contain {
+    width: 60%;
+    display: block !important;
+    margin: auto;
+}
+
+.img-file{
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid rgb(192, 192, 192);
+}
+.p-img {
+    object-fit: cover;
+    height: 25rem;
+    width: 100%;
+}
+
+
+.posttext {
+    width: 100%;
+    border: 1px solid #16533d3e;
+    padding: 1rem;
+    margin: 1rem 0 1rem 0;
+    height: 10rem;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+a {
+    text-decoration: none;
+    width: max-content;
+}
+
+.row {
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+}
+
+.right {
+    background-color: #eafff6;
+    border-radius: 5px;
+    width: 37%;
+    height: max-content;
+    margin: 2rem auto;
+}
+
+.categ {
+    padding: 1rem;
+    margin: .7rem;
+    border-radius: 5px;
+}
+
+.publish {
+    margin: 0.7rem 0 0.7rem 0.7rem;
+
+}
+
+.category-s {
+    width: max-content;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border: 1px solid rgba(128, 128, 128, 0.153);
+    border-radius: 10px;
+    transition: all .5s;
+    padding: .5rem 1rem .5rem 1rem;
+    background-color: white;
+}
+
+.category-s:hover {
+    background-color: #16533d;
+    color: white;
+}
+
+.all-posts {
+    background-color: #f3f3f32f;
+    width: 90%;
+    margin: 6rem auto;
+}
+
+.all-posts>.Row>a>.card {
+    width: 20rem;
+    row-gap: 1rem;
+    flex-flow: column;
+}
+
+.all-posts>.Row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* newsletter */
+.newsletter {
+    background-image: url('../images/news.png');
+    color: white;
+}
+.newsletter > .Row{
+    display: flex;
+}
+.email {
+    width: 90%;
+    border-radius: 5px;
+    border: 0;
+    margin: auto;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.subs {
+    width: 90% !important;
+}
+
+@media only screen and (max-width: 1100px) {
+    .main {
+        width: 97%;
+        /* flex-wrap: wrap; */
+        flex-direction: column-reverse;
+    }
+
+    .posts,
+    .right {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .categ {
+        padding: 0;
+    }
+
+    .newsletter{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:700px) {
+    .contain {
+        width: 90%;
+    }
+
+    .card-img {
+        width: 17rem;
+    }
+
+    .card {
+        flex-direction: column;
+        width: 17rem;
+    }
+
+    .Row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .Row {
+        justify-content: space-evenly;
+        display: block;
+    }
+
+    .newsletter{
+        display: block;
+        margin: auto;
+        padding: 1rem;
+    }
+
+    .p-img {
+        height: 15rem;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card-img {
+        width: 100%;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

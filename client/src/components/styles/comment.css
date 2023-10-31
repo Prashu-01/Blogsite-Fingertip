@@ -1,0 +1,15 @@
+/* show comment */
+.comments {
+    border: 1px solid rgb(159, 159, 159);
+    border-radius: 10px;
+    padding: 1.4rem;
+}
+
+.comm {
+    margin: 2rem 0 0 0;
+    width: 70%;
+    /* background-color:#eafff6; */
+    background-color:rgb(200 200 200 / 25%);
+    padding: 0.9rem;
+    border-radius: 10px 10px 10px 3px ;
+}

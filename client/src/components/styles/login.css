@@ -1,0 +1,65 @@
+.bg{
+    background-image: url('../images/leaf_green.jpg') ;
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+}
+.login{
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.191);
+    backdrop-filter: blur(10px) brightness(1.5);
+    border-radius: 5px;
+    box-shadow: 4px 8px 16px hsl(0deg 0% 0% / 0.075);
+    width: 25rem;
+    height: max-content;
+    align-items: center;
+    margin: 9rem auto;
+    padding: 2rem 0rem 2rem 0rem;
+    display: flex;
+    flex-flow: column;
+}
+.uname{
+    width: 80%;
+    height: 2.5rem;
+    margin: 1rem auto;
+    border-radius: 5px;
+    font-size: .9rem;
+    border: 0;
+    border-bottom: 1px solid rgb(71, 71, 71);
+    &:focus-visible{  /* must cheez :) */
+        outline: none;
+    }
+}
+.tl{
+    font-size: 1.7rem;
+    margin: 2rem 0 2rem 0;
+}
+
+.signin{
+    background-color: #ceffe9;
+    font-weight: 700;
+    color: #16533d;
+}
+/* responsive */
+@media only screen and (max-width:700px) {
+    .login{
+        margin: 2rem auto;
+    }
+    .bg{
+        padding-top: 5rem;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .login{
+        width:95%;
+    }
+    .tl{
+        font-size: 1.4rem;
+    }
+    .uname{
+        margin: .7rem auto;
+        width: 90%;
+    }
+}
