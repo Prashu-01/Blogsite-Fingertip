@@ -2,7 +2,7 @@
 import grid from 'gridfs-stream'
 import mongoose from 'mongoose'
 
-const url='https://famous-tick-lingerie.cyclic.app/'
+const url=''
 
 let gfs,gridfsBucket 
 const conn=mongoose.connection

@@ -27,8 +27,8 @@ app.get("*",function(_,res){
 dotenv.config();
 const user=process.env.User_name;
 const pass=process.env.User_pass;
-// const PORT=8000;
 const PORT=process.env.PORT || 8000;
 
-Connection(user,pass);
+const url=process.env.DB_url
+Connection(url);
 app.listen(PORT,()=>{console.log(`server is listening at port: ${PORT}`)})
