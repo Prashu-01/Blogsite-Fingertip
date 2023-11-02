@@ -11,12 +11,10 @@ const app=express()
 // route
 app.use(cors()) //for handling cors 
 // for handling POST request by json
-
 app.use(bodyParser.json({extended: true}))
 app.use(bodyParser.urlencoded({extended: true}))
 //above two lines are strictly required to use before this below line
 app.use('/',Router) 
-
 // serving the front-end
 const __dirname=path.resolve();
 app.use(express.static(path.join(__dirname,"./client/build")))
@@ -29,9 +27,8 @@ app.get("*",function(_,res){
 dotenv.config();
 const user=process.env.User_name;
 const pass=process.env.User_pass;
-const PORT=8000;
-// const PORT=process.env.PORT || 8000;
-
+// const PORT=8000;
+const PORT=process.env.PORT || 8000;
 
 Connection(user,pass);
 app.listen(PORT,()=>{console.log(`server is listening at port: ${PORT}`)})
