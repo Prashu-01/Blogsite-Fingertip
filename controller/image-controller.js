@@ -1,8 +1,8 @@
-// import { request, response } from "express"
+
 import grid from 'gridfs-stream'
 import mongoose from 'mongoose'
 
-const url='http://localhost:8000'
+const url='https://famous-tick-lingerie.cyclic.app/'
 
 let gfs,gridfsBucket 
 const conn=mongoose.connection
