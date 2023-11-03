@@ -4,11 +4,10 @@ import { GridFsStorage } from 'multer-gridfs-storage';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const user=process.env.User_name;
-const pass=process.env.User_pass;
+const uri=process.env.DB_url;
 
 const storage=new GridFsStorage({
-    url:`mongodb://${user}:${pass}@ac-bo0zohc-shard-00-00.hphhfit.mongodb.net:27017,ac-bo0zohc-shard-00-01.hphhfit.mongodb.net:27017,ac-bo0zohc-shard-00-02.hphhfit.mongodb.net:27017/?ssl=true&replicaSet=atlas-r1oljn-shard-0&authSource=admin&retryWrites=true&w=majority`,
+    url: uri,
     options: { useNewUrlParser: true },
     file: (request, file) => {
         const match = ["image/png", "image/jpg"];
