@@ -22,6 +22,7 @@ export default function Createpost(props) {
     const { id } = useParams()
     const [post, setPost] = useState(initialPost)
     const [file, setFile] = useState('')
+    const [err,showErr]=useState('')
     const { account } = useContext(DataContext)
     const url = post.picture ? post.picture : "https://plus.unsplash.com/premium_photo-1674500522724-3d2a371d4c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80"
     props.togglenav(0)
@@ -69,10 +70,14 @@ export default function Createpost(props) {
             if (file) {
                 const data = new FormData();
                 data.append("name", file.name);
-                data.append("file", file);
+                data.append("file", file)
                 // API call
-                const response = await API.uploadFile(data)
-                post.picture = response.data
+                try {
+                    const response = await API.uploadFile(data)
+                    if (response.isSuccess) post.picture = response.data.msg
+                } catch (error) {
+                    showErr(error)
+                }
             }
         }
         getImage()
@@ -94,7 +99,7 @@ export default function Createpost(props) {
                         style={{ display: 'none' }}
                         onChange={(e) => setFile(e.target.files[0])}
                     />
-                    <h5 style={{textAlign:'center',color:'#0c4f36'}}>click on image to input</h5>
+                    <h5 style={{ textAlign: 'center', color: '#0c4f36' }}>click to import</h5>
                 </div>
                 <textarea className='posttext' name="title" onChange={(e) => handleChange(e)} value={post.title} style={{ height: '4rem', fontWeight: '700' }}></textarea>
                 <textarea

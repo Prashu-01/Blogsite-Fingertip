@@ -5,30 +5,34 @@ import dotenv from 'dotenv';
 import Router from "./routes/route.js";
 import cors from 'cors';
 import bodyParser from "body-parser";
+import fileUpload from "express-fileupload";
 
-const app=express()
+const app = express()
 
+// for file upload
+app.use(fileUpload({
+    useTempFiles: false
+}))
 // route
 app.use(cors()) //for handling cors 
 // for handling POST request by json
-app.use(bodyParser.json({extended: true}))
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 //above two lines are strictly required to use before this below line
-app.use('/',Router) 
+app.use('/', Router)
+
 // serving the front-end
-const __dirname=path.resolve();
-app.use(express.static(path.join(__dirname,"./client/build")))
-app.get("*",function(_,res){
-    res.sendFile(path.join(__dirname,"./client/build/index.html"),function(err){
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "./client/build")))
+app.get("*", function (_, res) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"), function (err) {
         res.status(500).send(err)
     })
 })
 
 dotenv.config();
-const user=process.env.User_name;
-const pass=process.env.User_pass;
-const PORT=process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
-const url=process.env.DB_url
+const url = process.env.DB_url
 Connection(url);
-app.listen(PORT,()=>{console.log(`server is listening at port: ${PORT}`)})
+app.listen(PORT, () => { console.log(`server is listening at port: ${PORT}`) })

@@ -18,9 +18,9 @@ const initialPost = {
 export default function Createpost(props) {
 
     const navigate = useNavigate()
-    const [err, showErr] = useState('')
     const [post, setPost] = useState(initialPost)
     const [file, setFile] = useState('')
+    const [err, showErr] = useState('')
     const { account } = useContext(DataContext)
     props.togglenav(0)
 
@@ -46,6 +46,7 @@ export default function Createpost(props) {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                post=initialPost
                 navigate('/')
             }
         } catch (error) {
@@ -58,11 +59,11 @@ export default function Createpost(props) {
             if (file) {
                 const data = new FormData();
                 data.append("name", file.name);
-                data.append("file", file);
+                data.append("file", file)
                 // API call
-                const response = await API.uploadFile(data)
                 try {
-                    post.picture = response.data
+                    const response = await API.uploadFile(data)
+                    if(response.isSuccess) post.picture = response.data.msg
                 } catch (error) {
                     showErr(error)
                 }
@@ -76,7 +77,6 @@ export default function Createpost(props) {
     return (
         <>
             <div className="contain" style={{ margin: '7rem auto' }}>
-                {/* <img src={url} alt="" className='p-img' /> */}
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
                         <img src={url} alt="" className='p-img' />

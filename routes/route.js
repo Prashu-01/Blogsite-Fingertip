@@ -1,10 +1,10 @@
 import express from 'express';
 import { signupUser,loginUser, logoutUser} from '../controller/user_controller.js';
-import { uploadImage,getImage } from '../controller/image-controller.js';
+import { uploadImage} from '../controller/image-controller.js';
 import { createPost,getAllPosts, getPost, updatePost, deletePost } from '../controller/post-controller.js';
 import { addComment, getAllComment, delComment } from '../controller/comment-controller.js';
 
-import upload from '../utils/upload.js'
+// import upload from '../utils/upload.js'
 import { authenticateToken } from '../controller/jwt-authentication.js';
 
 const router=express.Router();
@@ -13,8 +13,7 @@ router.post('/signup',signupUser);
 router.post('/login',loginUser);
 router.post('/logout',logoutUser);
 // image upload 
-router.post('/file/upload', upload.single('file') ,authenticateToken, uploadImage);
-router.get('/file/:filename', getImage);
+router.post('/file/upload', authenticateToken, uploadImage);
 // post
 router.get('/posts',getAllPosts);
 router.post('/create', authenticateToken ,createPost);
