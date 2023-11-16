@@ -6,7 +6,7 @@ import { getAccessToken, getType } from '../utils/common-utils.js';
 const API_URL = ''
 const axiosInstance = axios.create({
     baseURL: API_URL,
-    timeout: 10000,
+    timeout: 20000,
     headers: {
         "Accept": "application/json, form-data",
         "Content-Type": "application/json"

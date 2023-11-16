@@ -46,7 +46,7 @@ export default function Createpost(props) {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                post=initialPost
+                setPost(initialPost)
                 navigate('/')
             }
         } catch (error) {
