@@ -6,6 +6,7 @@ import Router from "./routes/route.js";
 import cors from 'cors';
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
+import mongoose from "mongoose";
 
 const app = express()
 
@@ -34,5 +35,7 @@ dotenv.config();
 const PORT = process.env.PORT || 8000;
 
 const url = process.env.DB_url
-Connection(url);
-app.listen(PORT, () => { console.log(`server is listening at port: ${PORT}`) })
+Connection(url)
+.then(()=>app.listen(PORT, () => { console.log(`server is listening at port: ${PORT}`) }))
+.catch((err)=>console.log(err.message))
+

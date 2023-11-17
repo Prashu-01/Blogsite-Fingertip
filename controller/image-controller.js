@@ -44,6 +44,7 @@ cloudinary.config({
 export const uploadImage = async (request, response) => {
     const parser = new DataURIParser()
     if (!request.files.file) return response.status(404).json({ msg: 'file not found' })
+    // make string of buffer data(image)
     const extName = path.extname(request.files.file.name).toString();
     const file64 = parser.format(extName, request.files.file.data);
     try {
