@@ -23,6 +23,11 @@ export default function Login({ isUserAuthenticated }) {
     const [error, showError] = useState('');
     const { setAccount } = useContext(DataContext)
 
+    // useEffect(()=>{
+    //     setLogin(loginInit)
+    //     setSignup(signupInit)
+    // },[])
+
     const navigate = useNavigate()
 
     const togglesignup = () => {
@@ -72,6 +77,7 @@ export default function Login({ isUserAuthenticated }) {
                 if (response.isSuccess) {
                     showError('successfull');
                     setSignup(signupInit);
+                    setLogin(loginInit);
                     toggleAccount('login');
                 }
             } catch (error) {

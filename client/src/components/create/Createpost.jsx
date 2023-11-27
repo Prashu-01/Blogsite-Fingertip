@@ -20,11 +20,11 @@ export default function Createpost(props) {
     const navigate = useNavigate()
     const [post, setPost] = useState(initialPost)
     const [file, setFile] = useState('')
+    const [img,setImg]=useState('')
     const [err, showErr] = useState('')
     const { account } = useContext(DataContext)
     props.togglenav(0)
 
-    const url = post.picture ? post.picture : 'https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0'
     // listen value for post
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -47,6 +47,7 @@ export default function Createpost(props) {
                     timer: 1500
                 })
                 setPost(initialPost)
+                // post.picture = ''
                 navigate('/')
             }
         } catch (error) {
@@ -54,39 +55,49 @@ export default function Createpost(props) {
         }
     }
 
-    useEffect(() => {
-        const getImage = async () => {
-            if (file) {
-                const data = new FormData();
-                data.append("name", file.name);
-                data.append("file", file)
-                // API call
-                try {
-                    const response = await API.uploadFile(data)
-                    if(response.isSuccess) post.picture = response.data.msg
-                } catch (error) {
-                    showErr(error)
+    const getImage = async () => {
+        // setFile(e.target.files[0])
+        if (file) {
+            const data = new FormData();
+            data.append("name", file.name);
+            data.append("file", file)
+            // API call
+            try {
+                let response = await API.uploadFile(data)
+                if (response.isSuccess) {
+                    post.picture = response.data.msg
+                    console.log("setted...", post.picture)
                 }
+            } catch (error) {
+                showErr(error)
             }
         }
-        getImage()
+    }
+    const handleimg=(e)=>{
+        setImg(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0])
+    }
+    useEffect(() => {
         window.scrollTo(0, 0)
+        post.picture = ''
         post.username = account.username
-    }, [file])
+    }, [])
 
     return (
         <>
             <div className="contain" style={{ margin: '7rem auto' }}>
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
-                        <img src={url} alt="" className='p-img' />
+                        <img src={img===''?'https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0' : img} alt="" className='p-img' />
+                        <button type="button" className="allpost createpost pos" onClick={() => getImage()}>Upload Image</button>
                     </label>
                     {/* image input */}
                     <input
                         type="file"
                         id="fileInput"
                         style={{ display: 'none' }}
-                        onChange={(e) => setFile(e.target.files[0])}
+                        // onChange={(e) => setFile(e.target.files[0])}
+                        onChange={handleimg}
                     />
                 </div>
                 {/* title */}

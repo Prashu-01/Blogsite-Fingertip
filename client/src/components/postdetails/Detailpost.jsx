@@ -25,7 +25,7 @@ export default function Detailpost(props) {
       cancelButtonColor: 'grey',
       confirmButtonText: 'Yes, delete it!'
     }).then(async(result) =>  {
-      if (result.isConfirmed) {
+      if (result.isConfirmed) { 
         try {
           let response = await API.deletePost(post._id)
           if (response.isSuccess) {

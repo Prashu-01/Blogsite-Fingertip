@@ -85,6 +85,14 @@
     }
 }
 
+.pos{
+    width: 100%;
+    background-color: #16533d;
+    color: white;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
 /* detail post */
 .contain {
     width: 60%;
@@ -95,9 +103,10 @@
 .img-file{
     overflow: hidden;
     margin-bottom: 1rem;
-    border: 1px solid rgb(192, 192, 192);
+    border: 1px dashed rgb(192, 192, 192);
 }
 .p-img {
+    /* position: absolute; */
     object-fit: cover;
     height: 25rem;
     width: 100%;
