@@ -3,6 +3,7 @@ import '../styles/login.css'
 import { API } from '../../service/api.js'
 import { DataContext } from '../../context/dataProvider.jsx'
 import { useNavigate } from 'react-router-dom';
+import BeatLoader from "react-spinners/BeatLoader";
 
 // login
 const loginInit = {
@@ -18,10 +19,11 @@ const signupInit = {
 export default function Login({ isUserAuthenticated }) {
 
     const [account, toggleAccount] = useState('login')
-    const [login, setLogin] = useState(loginInit);
-    const [signup, setSignup] = useState(signupInit);
-    const [error, showError] = useState('');
+    const [login, setLogin] = useState(loginInit)
+    const [signup, setSignup] = useState(signupInit)
+    const [error, showError] = useState('')
     const { setAccount } = useContext(DataContext)
+    const [loading, setLoading] = useState(false)
 
     // useEffect(()=>{
     //     setLogin(loginInit)
@@ -43,8 +45,10 @@ export default function Login({ isUserAuthenticated }) {
 
     // loginuser
     const loginUser = async () => {
+        setLoading(true)
         if (login.username === '' || login.password === '') {
             showError('Enter required fields')
+            setLoading(false)
         }
         else {
             try {
@@ -56,37 +60,42 @@ export default function Login({ isUserAuthenticated }) {
                     setAccount({ name: response.data.name, username: response.data.username });
 
                     isUserAuthenticated(true)
-                    setLogin(loginInit);
-                    navigate('/');
+                    setLogin(loginInit)
+                    setLoading(false)
+                    navigate('/')
                 }
             }
             catch (error) {
-                showError(error);
+                showError(error)
+                setLoading(false)
                 return;
             }
         }
     }
     // signup
     const singupUser = async () => {
+        setLoading(true)
         if (signup.name === '' || signup.username === '' || signup.password === '') {
             showError('Enter required fields')
+            setLoading(false)
         }
         else {
             try {
                 let response = await API.userSignup(signup)
                 if (response.isSuccess) {
-                    showError('successfull');
-                    setSignup(signupInit);
-                    setLogin(loginInit);
-                    toggleAccount('login');
+                    showError('successfull')
+                    setSignup(signupInit)
+                    setLogin(loginInit)
+                    setLoading(false)
+                    toggleAccount('login')
                 }
             } catch (error) {
-                showError(error);
+                showError(error)
+                setLoading(false)
             }
         }
     }
 
-    // for changing..s
     useEffect(() => {
         showError(false);
     }, [login])
@@ -102,7 +111,16 @@ export default function Login({ isUserAuthenticated }) {
                                 <span className='tl'>Login Here</span>
                                 <input required={true} type="text" className="uname" name='username' placeholder='   username' onChange={(e) => onValueChange(e)} />
                                 <input required={true} type="password" className="uname" name='password' placeholder='   password' onChange={(e) => onValueChange(e)} />
-                                <button className="signin uname" onClick={() => loginUser()}>Login</button>
+                                <button className="signin uname" onClick={() => loginUser()}>{
+                                    (loading === true) ? <BeatLoader
+                                        loading={loading}
+                                        color='#16533d'
+                                        size={10}
+                                        loader='BounceLoader'
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    /> : 'Login'
+                                }</button>
                                 <span style={{ color: 'red', fontWeight: 500 }}>{error}</span>
                                 OR
                                 <button className="createnew uname" onClick={() => togglesignup()}>Create Account</button>
@@ -113,10 +131,18 @@ export default function Login({ isUserAuthenticated }) {
                                 <input required={true} type="text" className="uname" name='name' placeholder='   name' onChange={(e) => onInputChange(e)} />
                                 <input required={true} type="text" className="uname" name='username' placeholder='   username' onChange={(e) => onInputChange(e)} />
                                 <input required={true} type="password" className="uname" name='password' placeholder='   password' onChange={(e) => onInputChange(e)} />
-                                <button className="createnew uname" onClick={() => singupUser()} >Create Account</button>
+                                <button className="createnew uname" onClick={() => singupUser()} >{
+                                    (loading === true) ? <BeatLoader
+                                        loading={loading}
+                                        color='#16533d'
+                                        size={10}
+                                        loader='BounceLoader'
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    /> : 'Create Account'
+                                }</button>
                                 <div style={{ color: 'red', fontWeight: 500 }}>{error}</div>
                                 {/* <hr style={{ width: '80%' }} /> */}OR <br />
-                                {/* <button className="singin uname" onClick={() => togglesignup()}>Signin</button> */}
                                 <span style={{ color: 'green' }}>Already have account? <span style={{ color: 'blue', cursor: 'pointer' }} onClick={() => togglesignup()}>Login</span></span>
                             </div>
                     }

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { DataContext } from '../../context/dataProvider.jsx'
 import { API } from '../../service/api.js'
 import { Categories } from '../../constants/data.js'
+import BeatLoader from "react-spinners/BeatLoader";
 
 const initialPost = {
     title: '',
@@ -22,6 +23,7 @@ export default function Createpost(props) {
     const [file, setFile] = useState('')
     const [img,setImg]=useState('')
     const [err, showErr] = useState('')
+    const [loading, setLoading] = useState(false)
     const { account } = useContext(DataContext)
     props.togglenav(0)
 
@@ -56,7 +58,7 @@ export default function Createpost(props) {
     }
 
     const getImage = async () => {
-        // setFile(e.target.files[0])
+        setLoading(true)
         if (file) {
             const data = new FormData();
             data.append("name", file.name);
@@ -65,11 +67,13 @@ export default function Createpost(props) {
             try {
                 let response = await API.uploadFile(data)
                 if (response.isSuccess) {
+                    setLoading(false)
                     post.picture = response.data.msg
                     console.log("setted...", post.picture)
                 }
             } catch (error) {
                 showErr(error)
+                setLoading(false)
             }
         }
     }
@@ -89,14 +93,22 @@ export default function Createpost(props) {
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
                         <img src={img===''?'https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0' : img} alt="" className='p-img' />
-                        <button type="button" className="allpost createpost pos" onClick={() => getImage()}>Upload Image</button>
+                        <button type="button" className="allpost createpost pos" onClick={() => getImage()}>{
+                                    (loading === true) ? <BeatLoader
+                                        loading={loading}
+                                        color='#ffff'
+                                        size={10}
+                                        loader='BounceLoader'
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    /> : 'Upload Image'
+                                }</button>
                     </label>
                     {/* image input */}
                     <input
                         type="file"
                         id="fileInput"
                         style={{ display: 'none' }}
-                        // onChange={(e) => setFile(e.target.files[0])}
                         onChange={handleimg}
                     />
                 </div>

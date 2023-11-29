@@ -84,6 +84,7 @@ export default function Detailpost(props) {
 
         {/* content */}
         <p className="content" style={{ fontSize: '1rem', marginTop: '2rem' }}>{post.description ? post.description : err}</p>
+        
         {/* comments */}
         <Comment Id={post._id} />
 

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { DataContext } from '../../context/dataProvider.jsx'
 import { API } from '../../service/api.js'
 import { Categories } from '../../constants/data.js'
+import BeatLoader from "react-spinners/BeatLoader";
 
 const initialPost = {
     title: '',
@@ -22,9 +23,11 @@ export default function Createpost(props) {
     const { id } = useParams()
     const [post, setPost] = useState(initialPost)
     const [file, setFile] = useState('')
-    const [err,showErr]=useState('')
+    const [img, setImg] = useState('')
+    const [err, showErr] = useState('')
+    const [loading, setLoading] = useState(false)
     const { account } = useContext(DataContext)
-    const url = post.picture ? post.picture : "https://plus.unsplash.com/premium_photo-1674500522724-3d2a371d4c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80"
+    // const url = post.picture ? post.picture : "https://plus.unsplash.com/premium_photo-1674500522724-3d2a371d4c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80"
     props.togglenav(0)
 
     const handleChange = (e) => {
@@ -36,6 +39,26 @@ export default function Createpost(props) {
         setPost({ ...post, ['categories']: formid.selected[formid.selected.selectedIndex].text });
     }
 
+    const getImage = async () => {
+        setLoading(true)
+        if (file) {
+            const data = new FormData();
+            data.append("name", file.name);
+            data.append("file", file)
+            // API call
+            try {
+                let response = await API.uploadFile(data)
+                if (response.isSuccess) {
+                    setLoading(false)
+                    post.picture = response.data.msg
+                    console.log("setted...", post.picture)
+                }
+            } catch (error) {
+                showErr(error)
+                setLoading(false)
+            }
+        }
+    }
     const updatePost = async () => {
         try {
             let response = await API.updatePost(post)
@@ -53,7 +76,10 @@ export default function Createpost(props) {
             return console.log("Update failed..")
         }
     }
-
+    const handleimg = (e) => {
+        setImg(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0])
+    }
     useEffect(() => {
         const fetchData = async () => {
             let response = await API.getPostById(id)
@@ -63,26 +89,8 @@ export default function Createpost(props) {
         }
         fetchData()
         window.scrollTo(0, 0)
-    }, [])
-
-    useEffect(() => {
-        const getImage = async () => {
-            if (file) {
-                const data = new FormData();
-                data.append("name", file.name);
-                data.append("file", file)
-                // API call
-                try {
-                    const response = await API.uploadFile(data)
-                    if (response.isSuccess) post.picture = response.data.msg
-                } catch (error) {
-                    showErr(error)
-                }
-            }
-        }
-        getImage()
         post.username = account.username
-    }, [file])
+    }, [])
 
     return (
         <>
@@ -90,16 +98,25 @@ export default function Createpost(props) {
                 {/* <img src={url} alt="" className='p-img' /> */}
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
-                        <img src={url} alt="" className='p-img' />
+                        <img src={img === '' ? post.picture : img} alt="" className='p-img' />
+                        <button type="button" className="allpost createpost pos" onClick={() => getImage()}>{
+                                    (loading === true) ? <BeatLoader
+                                        loading={loading}
+                                        color='#ffff'
+                                        size={10}
+                                        loader='BounceLoader'
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    /> : 'Update Image'
+                                }</button>
                     </label>
                     {/* image input */}
                     <input
                         type="file"
                         id="fileInput"
                         style={{ display: 'none' }}
-                        onChange={(e) => setFile(e.target.files[0])}
+                        onChange={handleimg}
                     />
-                    <h5 style={{ textAlign: 'center', color: '#0c4f36' }}>click to import</h5>
                 </div>
                 <textarea className='posttext' name="title" onChange={(e) => handleChange(e)} value={post.title} style={{ height: '4rem', fontWeight: '700' }}></textarea>
                 <textarea
@@ -109,6 +126,7 @@ export default function Createpost(props) {
                     value={post.description}
                     onChange={(e) => handleChange(e)}
                 ></textarea>
+                <span style={{ color: 'red', fontSize: 'smaller' }}>{err}</span>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <div className="publish">
                         <form name='formid' onChange={() => handleit()}>
