@@ -49,15 +49,16 @@ export default function Createpost(props) {
             try {
                 let response = await API.uploadFile(data)
                 if (response.isSuccess) {
-                    setLoading(false)
                     post.picture = response.data.msg
                     console.log("setted...", post.picture)
+                    setLoading(false)
                 }
             } catch (error) {
                 showErr(error)
                 setLoading(false)
             }
         }
+        setLoading(false)
     }
     const updatePost = async () => {
         try {
@@ -100,15 +101,15 @@ export default function Createpost(props) {
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
                         <img src={img === '' ? post.picture : img} alt="" className='p-img' />
                         <button type="button" className="allpost createpost pos" onClick={() => getImage()}>{
-                                    (loading === true) ? <BeatLoader
-                                        loading={loading}
-                                        color='#ffff'
-                                        size={10}
-                                        loader='BounceLoader'
-                                        aria-label="Loading Spinner"
-                                        data-testid="loader"
-                                    /> : 'Update Image'
-                                }</button>
+                            (loading === true) ? <BeatLoader
+                                loading={loading}
+                                color='#ffff'
+                                size={10}
+                                loader='BounceLoader'
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            /> : 'Update Image'
+                        }</button>
                     </label>
                     {/* image input */}
                     <input

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom';
 import { API } from '../../../service/api.js'
 
-
 import '../../styles/post.css'
 import '../../styles/carousel.css'
 import Postcard from './Postcard'

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import '../styles/home.css'
 import '../styles/carousel.css'
-
 // components
 import Hero from './Hero.jsx'
 import Post from './posts/Post.jsx'

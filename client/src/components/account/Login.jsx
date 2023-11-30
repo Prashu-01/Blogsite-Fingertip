@@ -24,13 +24,11 @@ export default function Login({ isUserAuthenticated }) {
     const [error, showError] = useState('')
     const { setAccount } = useContext(DataContext)
     const [loading, setLoading] = useState(false)
-
-    // useEffect(()=>{
-    //     setLogin(loginInit)
-    //     setSignup(signupInit)
-    // },[])
-
     const navigate = useNavigate()
+
+    useEffect(() => {
+        showError(false);
+    }, [login])
 
     const togglesignup = () => {
         account === 'signup' ? toggleAccount('login') : toggleAccount('signup')
@@ -85,7 +83,6 @@ export default function Login({ isUserAuthenticated }) {
                 if (response.isSuccess) {
                     showError('successfull')
                     setSignup(signupInit)
-                    setLogin(loginInit)
                     setLoading(false)
                     toggleAccount('login')
                 }
@@ -96,15 +93,11 @@ export default function Login({ isUserAuthenticated }) {
         }
     }
 
-    useEffect(() => {
-        showError(false);
-    }, [login])
-
     return (
         <>
             <div className="bg">
                 <div className="cont">
-                    {
+                    {   
                         account === 'login' ?
                             <div className='login'>
                                 {/* <div><i className="fa-sharp fa-solid fa-xmark"></i></div> */}

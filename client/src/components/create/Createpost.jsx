@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import { DataContext } from '../../context/dataProvider.jsx'
 import { API } from '../../service/api.js'
 import { Categories } from '../../constants/data.js'
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from "react-spinners/BeatLoader"
 
 const initialPost = {
     title: '',
@@ -21,12 +21,17 @@ export default function Createpost(props) {
     const navigate = useNavigate()
     const [post, setPost] = useState(initialPost)
     const [file, setFile] = useState('')
-    const [img,setImg]=useState('')
+    const [img, setImg] = useState('')
     const [err, showErr] = useState('')
     const [loading, setLoading] = useState(false)
     const { account } = useContext(DataContext)
-    props.togglenav(0)
-
+    
+    useEffect(() => {
+        props.togglenav(0)
+        window.scrollTo(0, 0)
+        // post.picture = ''
+        post.username = account.username
+    }, [])
     // listen value for post
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
@@ -67,42 +72,38 @@ export default function Createpost(props) {
             try {
                 let response = await API.uploadFile(data)
                 if (response.isSuccess) {
-                    setLoading(false)
                     post.picture = response.data.msg
                     console.log("setted...", post.picture)
+                    setLoading(false)
                 }
             } catch (error) {
                 showErr(error)
                 setLoading(false)
             }
         }
+        setLoading(false)
     }
-    const handleimg=(e)=>{
+    const handleimg = (e) => {
         setImg(URL.createObjectURL(e.target.files[0]))
         setFile(e.target.files[0])
     }
-    useEffect(() => {
-        window.scrollTo(0, 0)
-        post.picture = ''
-        post.username = account.username
-    }, [])
 
     return (
         <>
             <div className="contain" style={{ margin: '7rem auto' }}>
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
-                        <img src={img===''?'https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0' : img} alt="" className='p-img' />
+                        <img src={img === '' ? 'https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0' : img} alt="" className='p-img' />
                         <button type="button" className="allpost createpost pos" onClick={() => getImage()}>{
-                                    (loading === true) ? <BeatLoader
-                                        loading={loading}
-                                        color='#ffff'
-                                        size={10}
-                                        loader='BounceLoader'
-                                        aria-label="Loading Spinner"
-                                        data-testid="loader"
-                                    /> : 'Upload Image'
-                                }</button>
+                            (loading === true) ? <BeatLoader
+                                loading={loading}
+                                color='#ffff'
+                                size={10}
+                                loader='BounceLoader'
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            /> : 'Upload Image'
+                        }</button>
                     </label>
                     {/* image input */}
                     <input
