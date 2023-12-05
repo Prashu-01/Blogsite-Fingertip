@@ -85,7 +85,7 @@
     }
 }
 .allpost>.Row>a>.card>.card-img{
-    width: 100%;
+    width: 100% !important;
 }
 .pos{
     width: 100%;
