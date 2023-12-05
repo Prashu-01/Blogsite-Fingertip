@@ -84,7 +84,9 @@
         outline: none;
     }
 }
-
+.allpost>.Row>a>.card>.card-img{
+    width: 100%;
+}
 .pos{
     width: 100%;
     background-color: #16533d;
