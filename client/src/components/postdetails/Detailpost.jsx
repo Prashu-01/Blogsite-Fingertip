@@ -10,7 +10,7 @@ import Comment from './Comment'
 export default function Detailpost(props) {
   const [post, setpost] = useState({})
   const [err, showError] = useState('')
-  const url = post.picture ? post.picture : "https://plus.unsplash.com/premium_photo-1674500522724-3d2a371d4c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80"
+  const url = post.picture ? post.picture : "https://static.vecteezy.com/system/resources/previews/005/720/408/original/crossed-image-icon-picture-not-available-delete-picture-symbol-free-vector.jpg"
   const { id } = useParams()
   const navigate = useNavigate()
   const { account } = useContext(DataContext)
@@ -24,11 +24,12 @@ export default function Detailpost(props) {
       confirmButtonColor: '#dc3545',
       cancelButtonColor: 'grey',
       confirmButtonText: 'Yes, delete it!'
-    }).then(async(result) =>  {
-      if (result.isConfirmed) { 
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         try {
+          let responsecomment = await API.delComment(post._id)
           let response = await API.deletePost(post._id)
-          if (response.isSuccess) {
+          if (response.isSuccess && responsecomment.isSuccess) {
             Swal.fire(
               'Deleted!',
               'Post has been deleted.',
@@ -36,6 +37,7 @@ export default function Detailpost(props) {
             )
             navigate('/')
           }
+          
         } catch (error) {
           showError(error)
           Swal.fire(
@@ -84,7 +86,7 @@ export default function Detailpost(props) {
 
         {/* content */}
         <p className="content" style={{ fontSize: '1rem', marginTop: '2rem' }}>{post.description ? post.description : err}</p>
-        
+
         {/* comments */}
         <Comment Id={post._id} />
 

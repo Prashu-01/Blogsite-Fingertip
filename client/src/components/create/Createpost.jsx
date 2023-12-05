@@ -23,13 +23,14 @@ export default function Createpost(props) {
     const [file, setFile] = useState('')
     const [img, setImg] = useState('')
     const [err, showErr] = useState('')
+    const [disable, setDisable] = useState(false)
     const [loading, setLoading] = useState(false)
     const { account } = useContext(DataContext)
     
     useEffect(() => {
         props.togglenav(0)
         window.scrollTo(0, 0)
-        // post.picture = ''
+        post.picture = ''
         post.username = account.username
     }, [])
     // listen value for post
@@ -54,7 +55,6 @@ export default function Createpost(props) {
                     timer: 1500
                 })
                 setPost(initialPost)
-                // post.picture = ''
                 navigate('/')
             }
         } catch (error) {
@@ -63,6 +63,7 @@ export default function Createpost(props) {
     }
 
     const getImage = async () => {
+        setDisable(true)
         setLoading(true)
         if (file) {
             const data = new FormData();
@@ -73,14 +74,12 @@ export default function Createpost(props) {
                 let response = await API.uploadFile(data)
                 if (response.isSuccess) {
                     post.picture = response.data.msg
-                    console.log("setted...", post.picture)
-                    setLoading(false)
                 }
             } catch (error) {
                 showErr(error)
-                setLoading(false)
             }
         }
+        setDisable(false)
         setLoading(false)
     }
     const handleimg = (e) => {
@@ -114,10 +113,11 @@ export default function Createpost(props) {
                     />
                 </div>
                 {/* title */}
-                <textarea className='posttext' name="title" onChange={(e) => handleChange(e)} placeholder='title' style={{ height: '4rem', fontWeight: '700' }}></textarea>
+                <textarea className='posttext' disabled={disable} name="title" onChange={(e) => handleChange(e)} placeholder='title' style={{ height: '4rem', fontWeight: '700' }}></textarea>
                 {/* <discription > */}
                 <textarea
                     className='posttext'
+                    disabled={disable}
                     style={{ width: '100%' }}
                     name="description"
                     placeholder='Your story here . . .'

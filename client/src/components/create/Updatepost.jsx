@@ -26,8 +26,9 @@ export default function Createpost(props) {
     const [img, setImg] = useState('')
     const [err, showErr] = useState('')
     const [loading, setLoading] = useState(false)
+    const [disable, setDisable] = useState(false)
     const { account } = useContext(DataContext)
-    // const url = post.picture ? post.picture : "https://plus.unsplash.com/premium_photo-1674500522724-3d2a371d4c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80"
+    const url = post.picture ? post.picture : "https://th.bing.com/th/id/R.69937825d1e99fa4aef30ef04aeef944?rik=lbO9N0ZyHqUcsA&riu=http%3a%2f%2fsamclient.spacialaudio.com%2fimages%2fDrop-Files-Here-extra.png&ehk=VtYg2CE%2fOsDDfiKhDykSA2F9LyE39SlPO08K9fXbTc0%3d&risl=&pid=ImgRaw&r=0"
     props.togglenav(0)
 
     const handleChange = (e) => {
@@ -41,6 +42,7 @@ export default function Createpost(props) {
 
     const getImage = async () => {
         setLoading(true)
+        setDisable(true)
         if (file) {
             const data = new FormData();
             data.append("name", file.name);
@@ -50,15 +52,15 @@ export default function Createpost(props) {
                 let response = await API.uploadFile(data)
                 if (response.isSuccess) {
                     post.picture = response.data.msg
-                    console.log("setted...", post.picture)
-                    setLoading(false)
+                    // setLoading(false)
                 }
             } catch (error) {
                 showErr(error)
-                setLoading(false)
+                // setLoading(false)
             }
         }
         setLoading(false)
+        setDisable(false)
     }
     const updatePost = async () => {
         try {
@@ -74,7 +76,7 @@ export default function Createpost(props) {
                 navigate(`/detail/${id}`)
             }
         } catch (error) {
-            return console.log("Update failed..")
+            showErr(error)
         }
     }
     const handleimg = (e) => {
@@ -96,7 +98,6 @@ export default function Createpost(props) {
     return (
         <>
             <div className="contain" style={{ margin: '7rem auto' }}>
-                {/* <img src={url} alt="" className='p-img' /> */}
                 <div className="img-file">
                     <label htmlFor="fileInput" style={{ cursor: 'pointer', fontSize: 'xx-large', width: '100%' }}>
                         <img src={img === '' ? post.picture : img} alt="" className='p-img' />
@@ -119,9 +120,10 @@ export default function Createpost(props) {
                         onChange={handleimg}
                     />
                 </div>
-                <textarea className='posttext' name="title" onChange={(e) => handleChange(e)} value={post.title} style={{ height: '4rem', fontWeight: '700' }}></textarea>
+                <textarea className='posttext' disabled={disable} name="title" onChange={(e) => handleChange(e)} value={post.title} style={{ height: '4rem', fontWeight: '700' }}></textarea>
                 <textarea
                     className='posttext'
+                    disabled={disable}
                     style={{ width: '100%' }}
                     name="description"
                     value={post.description}

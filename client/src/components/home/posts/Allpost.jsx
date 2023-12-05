@@ -9,6 +9,7 @@ import Postcard from './Postcard'
 export default function Allpost(props) {
     // fetch all post
     const [posts, setPosts] = useState([])
+    const [err,showErr] = useState('')
     const [searchParam] = useSearchParams()
     let category = searchParam.get('category')
     props.togglenav(0) //navbar toggle transparent to color
@@ -21,7 +22,7 @@ export default function Allpost(props) {
                     setPosts(response.data)
                 }
             } catch (error) {
-                console.log(error)
+                showErr(error)
             }
         }
         fetchData()
@@ -40,6 +41,7 @@ export default function Allpost(props) {
 
                         )) : <h4 className="title"> No data available </h4>
                     }
+                    <span style={{ color: 'red', fontSize: 'smaller' }}>{err}</span>
                 </div>
             </div>
         </>

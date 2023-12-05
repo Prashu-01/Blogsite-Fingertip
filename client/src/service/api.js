@@ -35,20 +35,15 @@ axiosInstance.interceptors.response.use(
     },
     function (error) {
         // Stop global loader here
-        // console.log('ye raha ERROR',error)
-        // return Promise.reject(error.response.data.msg);
         return Promise.reject(ProcessError(error))
     }
 )
 
 
 const processResponse = (response) => {
-    // console.log("ye raha response :----",response)
     if (response?.status === 200) {
-        // console.log('ye raha reponse:---',{isSuccess: true, data: response.data})
         return { isSuccess: true, data: response.data }
     } else {
-        // console.log('ye raha error')
         return {
             isFailure: true,
             status: response?.status,
@@ -65,6 +60,7 @@ const ProcessError=(error)=>{
     }
     return (error.toJSON().message)
 }
+
 // const ProcessError = (error) => {
 //     if (error.response) {
 //         // request true but response other than 2.x.x

@@ -81,9 +81,7 @@ export default function Comment({ Id }) {
                     showErr('')
                 } catch (error) {
                     showErr(error)
-                    Swal.fire(
-                        error
-                    )
+                    Swal.fire(error)
                 }
             }
         })

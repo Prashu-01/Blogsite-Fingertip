@@ -2,7 +2,7 @@ import express from 'express';
 import { signupUser,loginUser, logoutUser} from '../controller/user_controller.js';
 import { uploadImage} from '../controller/image-controller.js';
 import { createPost,getAllPosts, getPost, updatePost, deletePost } from '../controller/post-controller.js';
-import { addComment, getAllComment, delComment } from '../controller/comment-controller.js';
+import { addComment, getAllComment, deleteComment, delComment } from '../controller/comment-controller.js';
 
 // import upload from '../utils/upload.js'
 import { authenticateToken } from '../controller/jwt-authentication.js';
@@ -23,6 +23,7 @@ router.delete('/delete/:id', authenticateToken ,deletePost);
 // comment
 router.post('/comment/new',authenticateToken,addComment);
 router.get('/comments/:id', authenticateToken, getAllComment);
-router.delete('/comment/delete/:id',authenticateToken, delComment);
+router.delete('/comment/delete/:id',authenticateToken, deleteComment);
+router.delete('/comment/del/:id',authenticateToken, delComment)
 
 export default router;

@@ -13,7 +13,7 @@ export const addComment = async (request, response) => {
 
 export const getAllComment = async (request, response) => {
     try {
-        const comment = await Comment.find({ postId: request.params.id });
+        const comment = await Comment.find({ postId: request.params.id })
         return response.status(200).json(comment)
     }
     catch (error) {
@@ -21,9 +21,19 @@ export const getAllComment = async (request, response) => {
     }
 }
 
-export const delComment = async (request, response) => {
+export const deleteComment = async (request, response) => {
     try{
         await Comment.findByIdAndDelete(request.params.id)
+        return response.status(200).json({msg:'deleted'})
+    }
+    catch(error){
+        return response.status(500).json({msg: error.message})
+    }
+}
+// delete comment with post
+export const delComment = async (request, response) => {
+    try{
+        await Comment.deleteMany({postId:request.params.id})
         return response.status(200).json({msg:'deleted'})
     }
     catch(error){
