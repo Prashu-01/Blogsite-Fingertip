@@ -91,7 +91,7 @@ export default function Login({ isUserAuthenticated }) {
                 setLoading(false)
             }
         }
-        // document.querySelector('.uname').value = ""
+        document.querySelector('.uname').value = ""
     }
 
     return (

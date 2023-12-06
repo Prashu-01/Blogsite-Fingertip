@@ -54,6 +54,7 @@ export default function Comment({ Id }) {
             showErr(error)
         }
         setToggle(prevState => !prevState)
+        document.querySelector('.comments').value = ""
     }
 
     // only user can remove
