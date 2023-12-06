@@ -91,7 +91,7 @@ export default function Login({ isUserAuthenticated }) {
                 setLoading(false)
             }
         }
-        document.querySelector('.uname').value=""
+        // document.querySelector('.uname').value = ""
     }
 
     return (
@@ -125,7 +125,7 @@ export default function Login({ isUserAuthenticated }) {
                                 <input required={true} type="text" className="uname val" name='name' placeholder='   name' onChange={(e) => onInputChange(e)} />
                                 <input required={true} type="text" className="uname val" name='username' placeholder='   username' onChange={(e) => onInputChange(e)} />
                                 <input required={true} type="password" className="uname val" name='password' placeholder='   password' onChange={(e) => onInputChange(e)} />
-                                <button className="createnew uname" onClick={() => singupUser()} >{
+                                <button className="createnew uname signin" onClick={() => singupUser()} >{
                                     (loading === true) ? <BeatLoader
                                         loading={loading}
                                         color='#16533d'
@@ -135,6 +135,7 @@ export default function Login({ isUserAuthenticated }) {
                                         data-testid="loader"
                                     /> : 'Create Account'
                                 }</button>
+                                {/* <input type="submit" value='submit' /> */}
                                 <div style={{ color: 'red', fontWeight: 500 }}>{error}</div>
                                 OR <br />
                                 <span style={{ color: '#dbffdb' }}>Already have account? <span style={{ color: '#c1ffde', cursor: 'pointer' }} onClick={() => togglesignup()}>Login</span></span>
