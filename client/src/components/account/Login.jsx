@@ -91,13 +91,14 @@ export default function Login({ isUserAuthenticated }) {
                 setLoading(false)
             }
         }
+        document.querySelector('.uname').value=""
     }
 
     return (
         <>
             <div className="bg">
                 <div className="cont">
-                    {   
+                    {
                         account === 'login' ?
                             <div className='login'>
                                 {/* <div><i className="fa-sharp fa-solid fa-xmark"></i></div> */}
@@ -121,9 +122,9 @@ export default function Login({ isUserAuthenticated }) {
                             :
                             <div className='create-acount login'>
                                 <span className='tl'>Create New Account</span>
-                                <input required={true} type="text" className="uname" name='name' placeholder='   name' onChange={(e) => onInputChange(e)} />
-                                <input required={true} type="text" className="uname" name='username' placeholder='   username' onChange={(e) => onInputChange(e)} />
-                                <input required={true} type="password" className="uname" name='password' placeholder='   password' onChange={(e) => onInputChange(e)} />
+                                <input required={true} type="text" className="uname val" name='name' placeholder='   name' onChange={(e) => onInputChange(e)} />
+                                <input required={true} type="text" className="uname val" name='username' placeholder='   username' onChange={(e) => onInputChange(e)} />
+                                <input required={true} type="password" className="uname val" name='password' placeholder='   password' onChange={(e) => onInputChange(e)} />
                                 <button className="createnew uname" onClick={() => singupUser()} >{
                                     (loading === true) ? <BeatLoader
                                         loading={loading}
@@ -135,8 +136,8 @@ export default function Login({ isUserAuthenticated }) {
                                     /> : 'Create Account'
                                 }</button>
                                 <div style={{ color: 'red', fontWeight: 500 }}>{error}</div>
-                                {/* <hr style={{ width: '80%' }} /> */}OR <br />
-                                <span style={{ color: 'green' }}>Already have account? <span style={{ color: 'blue', cursor: 'pointer' }} onClick={() => togglesignup()}>Login</span></span>
+                                OR <br />
+                                <span style={{ color: '#dbffdb' }}>Already have account? <span style={{ color: '#c1ffde', cursor: 'pointer' }} onClick={() => togglesignup()}>Login</span></span>
                             </div>
                     }
                 </div>
