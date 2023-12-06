@@ -7,7 +7,7 @@ A full-stack blogging website with a classy, minimal and responsive UI. Share yo
  - Mongodb
  - Nodejs
 
-### website link: https://grumpy-cyan-goshawk.cyclic.app/
+ website link: https://grumpy-cyan-goshawk.cyclic.app/
 
 ### Top feature: 
  - Post - Create, Update and Delete
