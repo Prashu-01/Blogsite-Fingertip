@@ -25,7 +25,7 @@ function App() {
   
   const [mode, setMode] = useState('nt')
   const togglenav = (n) => {
-    if(n===0) setMode('nt')
+    if(n===0) setMode('nt') 
     else setMode('t')
   }
 
